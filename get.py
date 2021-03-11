@@ -70,9 +70,9 @@ def stanford(index: int):
                 print(i, i, q, file=outfile)
 
 
-def optsicom(index: int):
-    print(f"set{index}.zip")
-    with urlopen(f"http://grafo.etsii.urjc.es/optsicom/maxcut/set{index}.zip") as inzip:
+def optsicom():
+    print(f"set2.zip")
+    with urlopen(f"http://grafo.etsii.urjc.es/optsicom/maxcut/set2.zip") as inzip:
         with ZipFile(BytesIO(inzip.read())) as inzipfile:
             for name in inzipfile.namelist():
                 with inzipfile.open(name) as infile:
@@ -89,6 +89,24 @@ def optsicom(index: int):
                             print(i, i, q, file=outfile)
 
 
+def dimacs(index: int):
+    print(f"torus{index}")
+    with urlopen(f"http://dimacs.rutgers.edu/archive/Challenges/Seventh/Instances/TORUS/torus{index}.dat.gz") as infile:
+        with gzip.open(infile, mode="rt") as ingzip:
+            n, nonzeros = map(int, next(ingzip).split())
+            diag = [0] * n
+            with open(f"torus{index}", mode="w") as outfile:
+                print(n, file=outfile)
+                for _ in range(nonzeros):
+                    j, i, q = map(int, next(ingzip).split())
+                    diag[i - 1] -= q
+                    diag[j - 1] -= q
+                    print(i - 1, j - 1, q * 2, file=outfile)
+                for i, q in enumerate(diag):
+                    print(i, i, q, file=outfile)
+
+
+
 p = multiprocessing.Pool()
 for n in [50, 100, 500, 1000, 2500]:
     p.apply_async(orlib, [n])
@@ -103,7 +121,8 @@ for n, density_seed in [
         p.apply_async(palubeckis, [n, i, density, seed])
 for i in [*range(1, 68), 70, 72, 77, 81]:
     p.apply_async(stanford, [i])
-for i in [2, 3]:
-    p.apply_async(optsicom, [i])
+p.apply_async(optsicom)
+for i in ["g3-8", "g3-15", "pm3-8-50", "pm3-15-50"]:
+    p.apply_async(dimacs, [i])
 p.close()
 p.join()

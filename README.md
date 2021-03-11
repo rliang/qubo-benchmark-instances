@@ -23,4 +23,5 @@ and the matrices are in lower-triangular form.
 * [ORLib](http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files)
 * [Palubeckis](https://www.personalas.ktu.lt/~ginpalu)
 * [Stanford Gset](https://web.stanford.edu/~yyye/yyye/Gset) (reduced from Max-Cut)
-* [Optsicom Set2 and Set3](http://grafo.etsii.urjc.es/optsicom/maxcut) (reduced from Max-Cut)
+* [Optsicom Set2](http://grafo.etsii.urjc.es/optsicom/maxcut) (reduced from Max-Cut)
+* [DIMACS](http://dimacs.rutgers.edu/archive/Challenges/Seventh/Instances) (reduced from Max-Cut)
