@@ -108,7 +108,7 @@ def dimacs(index: int):
 
 
 p = multiprocessing.Pool()
-for n in [50, 100, 500, 1000, 2500]:
+for n in [50, 100, 250, 500, 1000, 2500]:
     p.apply_async(orlib, [n])
 for n, density_seed in [
     (3000, [(50, 31000), (80, 32000), (80, 33000), (100, 34000), (100, 35000), (100, 36000)]),
