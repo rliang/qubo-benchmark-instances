@@ -21,6 +21,7 @@ and the matrices are in lower-triangular form.
 ## Instance sets
 
 * [ORLib](http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files)
+* [Glover, Kochenberger and Alidaee](http://biqmac.uni-klu.ac.at/library/biq/gka/)
 * [Palubeckis](https://www.personalas.ktu.lt/~ginpalu)
 * [Stanford Gset](https://web.stanford.edu/~yyye/yyye/Gset) (reduced from Max-Cut)
 * [Optsicom Set2](http://grafo.etsii.urjc.es/optsicom/maxcut) (reduced from Max-Cut)

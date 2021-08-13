@@ -32,6 +32,17 @@ def orlib(n: int):
             process(infile)
 
 
+def gka(kind: str, index: int):
+    print(f"gka{index}{kind}")
+    with urlopen(f"http://biqmac.uni-klu.ac.at/library/biq/gka/gka{index}{kind}.sparse") as infile:
+        with open(f"gka{index}{kind}", "w") as outfile:
+            n, nonzeros = map(int, next(infile).split())
+            print(n, file=outfile)
+            for i in range(nonzeros):
+                j, i, q = map(int, next(infile).split())
+                print(i - 1, j - 1, q * (2 if j != i else 1), file=outfile)
+
+
 def palubeckis(n: int, index: int, density: int, seed: int):
     coef = float(2048 * 1024 * 1024 - 1)
     seed = float(seed)
@@ -110,6 +121,9 @@ def dimacs(index: int):
 p = multiprocessing.Pool()
 for n in [50, 100, 250, 500, 1000, 2500]:
     p.apply_async(orlib, [n])
+for kind, num in [("a", 8), ("b", 10), ("c", 7), ("d", 10), ("e", 5), ("f", 5)]:
+    for i in range(num):
+        p.apply_async(gka, [kind, i + 1])
 for n, density_seed in [
     (3000, [(50, 31000), (80, 32000), (80, 33000), (100, 34000), (100, 35000), (100, 36000)]),
     (4000, [(50, 41000), (80, 42000), (80, 43000), (100, 44000), (100, 45000), (100, 46000)]),
