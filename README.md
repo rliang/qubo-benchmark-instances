@@ -23,6 +23,7 @@ and the matrices are in lower-triangular form.
 The [metadata](./metadata) file contains a JSON object
 where each key is the filename of a benchmark instance
 and each value is an object containing the following data:
+* `n`: the number of variables of the instance.
 * `density`: the density of the instance, as a percentage of n².
 * `best`: the best known solution value of the instance in the literature.
 
