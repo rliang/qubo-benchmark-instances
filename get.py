@@ -117,26 +117,26 @@ def dimacs(index: int):
                     print(i, i, q, file=outfile)
 
 
-
-p = multiprocessing.Pool()
-for n in [50, 100, 250, 500, 1000, 2500]:
-    p.apply_async(orlib, [n])
-for kind, num in [("a", 8), ("b", 10), ("c", 7), ("d", 10), ("e", 5), ("f", 5)]:
-    for i in range(num):
-        p.apply_async(gka, [kind, i + 1])
-for n, density_seed in [
-    (3000, [(50, 31000), (80, 32000), (80, 33000), (100, 34000), (100, 35000), (100, 36000)]),
-    (4000, [(50, 41000), (80, 42000), (80, 43000), (100, 44000), (100, 45000), (100, 46000)]),
-    (5000, [(50, 51000), (80, 52000), (80, 53000), (100, 54000), (100, 55000), (100, 56000)]),
-    (6000, [(50, 61000), (80, 62000), (100, 64000)]),
-    (7000, [(50, 71000), (80, 72000), (100, 74000)]),
-]:
-    for i, (density, seed) in enumerate(density_seed, 1):
-        p.apply_async(palubeckis, [n, i, density, seed])
-for i in [*range(1, 68), 70, 72, 77, 81]:
-    p.apply_async(stanford, [i])
-p.apply_async(optsicom)
-for i in ["g3-8", "g3-15", "pm3-8-50", "pm3-15-50"]:
-    p.apply_async(dimacs, [i])
-p.close()
-p.join()
+if __name__ == '__main__':
+    p = multiprocessing.Pool()
+    for n in [50, 100, 250, 500, 1000, 2500]:
+        p.apply_async(orlib, [n])
+    for kind, num in [("a", 8), ("b", 10), ("c", 7), ("d", 10), ("e", 5), ("f", 5)]:
+        for i in range(num):
+            p.apply_async(gka, [kind, i + 1])
+    for n, density_seed in [
+        (3000, [(50, 31000), (80, 32000), (80, 33000), (100, 34000), (100, 35000), (100, 36000)]),
+        (4000, [(50, 41000), (80, 42000), (80, 43000), (100, 44000), (100, 45000), (100, 46000)]),
+        (5000, [(50, 51000), (80, 52000), (80, 53000), (100, 54000), (100, 55000), (100, 56000)]),
+        (6000, [(50, 61000), (80, 62000), (100, 64000)]),
+        (7000, [(50, 71000), (80, 72000), (100, 74000)]),
+    ]:
+        for i, (density, seed) in enumerate(density_seed, 1):
+            p.apply_async(palubeckis, [n, i, density, seed])
+    for i in [*range(1, 68), 70, 72, 77, 81]:
+        p.apply_async(stanford, [i])
+    p.apply_async(optsicom)
+    for i in ["g3-8", "g3-15", "pm3-8-50", "pm3-15-50"]:
+        p.apply_async(dimacs, [i])
+    p.close()
+    p.join()
